@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+    stages {
+        stage ("clean up"){
+            steps {
+                deleteDir()
+            }
+        }
+        stage ("clone repo"){
+            steps {
+                sh "git clone https://github.com/Malak2810/tp2jenkins.git"
+            }
+        }
+        stage ("Generate image"){
+            steps {
+                dir("tp2jenkins"){
+                    sh "mvn clean install"
+                    sh "docker build -t tp2jenk ."
+                }
+            }
+        }
+        stage ("Run docker compose"){
+            steps {
+                dir("tp2jenkins"){
+                    sh " docker compose up -d"
+                }
+            }
+        }
+    }
+}
