@@ -2,5 +2,5 @@ services:
 
   spring-boot-app:
     image: tp2jenk
-    port:
+    ports:
       -"0.0.0.0:8084:8080"
